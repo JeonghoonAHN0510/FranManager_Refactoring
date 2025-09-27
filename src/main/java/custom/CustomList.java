@@ -62,6 +62,7 @@ public class CustomList<E> {
         int new_size = list.length + 10;            // 기존 배열 크기 + 10
         E[] new_list = (E[]) new Object[new_size];  // 새로운 배열 선언
         for (int i = 0; i< size; i++){              // System.arraycopy로 대체 가능
+            // System.arraycopy(원본배열, 원본시작위치, 새로운배열, 새로운시작위치, 복사할개수)
             new_list[i] = list[i];                  // 기존 배열을 새로운 배열에 추가한다.
         } // for end
         return new_list;                            // 새롭게 생성된 배열을 반환한다.
@@ -82,4 +83,27 @@ public class CustomList<E> {
         } // if end
         return list[index];                         // 해당하는 리스트의 인덱스 값을 반환한다.
     } // func end
+
+    /**
+     * @author Jeonghoon
+     * @param index
+     */
+    public void remove(int index){
+        // 입력받은 인덱스의 범위 유효성 검사 : throw로 예외 실행
+        if (index < 0 || index >= size){            // 0보다 작거나 데이터 개수보다 크면
+            // 왜 size 이상임? index는 0부터 시작이기에 데이터가 10개여도 index는 9개까지 존재하므로
+            // size가 10이고 index가 10이면, 배열 범위를 벗어나게 됨
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ", Index가 범위를 벗어났습니다.");
+        } // if end
+        E[] new_list = (E[]) new Object[size];      // 새로운 배열 선언
+        for (int i = 0; i < size; i++){         // 모든 배열을 순회하면서
+            if (i < index){                         // i가 index보다 작으면
+                new_list[i] = list[i];              // 그대로 복사하고
+            } else if (i > index){                  // i가 index보다 크면
+                new_list[i -1] = list[i];           // 우측에 있는 데이터를 하나씩 땡기기
+            } // if end                             // index의 데이터는 복사 X
+        } // for end
+        size--;                                     // 데이터를 삭제했으므로, size 1 감소
+        list = new_list;                            // list에 삭제된 배열 저장
+    } // for end
 } // class end

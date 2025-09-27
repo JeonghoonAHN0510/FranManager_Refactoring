@@ -1,15 +1,7 @@
 package custom;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-
-
-        List<String> list = new ArrayList<>();
-        list.add("a");
-
 
         CustomList<String> stringList = new CustomList<>();
         stringList.add("a");
@@ -21,9 +13,14 @@ public class Main {
         integerList.add(2);
         integerList.add(3);
 
-        System.out.println("stringList = " + stringList);
-        System.out.println("integerList = " + integerList);
+        System.out.println("[삭제 전] stringList = " + stringList);
+        System.out.println("[삭제 전] integerList = " + integerList);
 
+        stringList.remove(1);
+        integerList.remove(1);
+
+        System.out.println("[삭제 후] stringList = " + stringList);
+        System.out.println("[삭제 후] integerList = " + integerList);
 
     } // main end
 } // class end
