@@ -44,7 +44,7 @@ public class CustomList<E> {
     } // func end
 
     /**
-     * [추가될 데이터]를 매개변수로 받아서 리스트에 데이터를 추가하고
+     * [data]를 매개변수로 받아서 리스트에 데이터를 추가하고
      * 저장된 데이터 개수를 1 증가시킨다.
      * @author Jeonghoon
      * @param data 추가될 데이터
@@ -55,6 +55,32 @@ public class CustomList<E> {
         } // if end
         list[size] = data;                          // 입력받은 데이터를 list에 추가한다.
         size++;                                     // size를 1 증가시킨다.
+    } // func end
+
+    /**
+     * [index, data]를 받아 해당하는 데이터를 지정한 인덱스 앞에 추가한다.
+     * 위 add(E data)와 오버로딩 관계
+     * @author Jeonghoon
+     * @param index
+     * @param data
+     */
+    public void add(int index, E data){
+        checkIndex(index);                          // index의 유효성 검사를 진행한다.
+        if (size == list.length){                   // 현재 저장된 개수와 배열의 크기가 같아지면
+            list = plusSize();                      // 배열의 크기를 증가시켜, 기존 배열에 저장한다.
+        } // if end
+        size++;                                     // size를 1 증가시키고
+        E[] new_list = (E[]) new Object[size];      // 새로운 배열 선언
+        for (int i = 0; i < size; i++){             // 모든 배열을 순회하면서
+            if (i < index){                         // i가 index보다 작으면
+                new_list[i] = list[i];              // 그대로 복사하고
+            } else if (i > index){                  // i가 index보다 크면
+                new_list[i] = list[i - 1];          // i-1을 복사하고
+            } else {                                // i가 index와 같으면
+                new_list[i] = data;                 // 입력받은 값을 저장한다.
+            } // if end
+        } // for end
+        list = new_list;                            // list에 추가된 배열 저장
     } // func end
 
     /**
@@ -91,7 +117,7 @@ public class CustomList<E> {
     public void remove(int index){
         checkIndex(index);                          // index의 유효성 검사를 진행한다.
         E[] new_list = (E[]) new Object[size];      // 새로운 배열 선언
-        for (int i = 0; i < size; i++){         // 모든 배열을 순회하면서
+        for (int i = 0; i < size; i++){             // 모든 배열을 순회하면서
             if (i < index){                         // i가 index보다 작으면
                 new_list[i] = list[i];              // 그대로 복사하고
             } else if (i > index){                  // i가 index보다 크면
