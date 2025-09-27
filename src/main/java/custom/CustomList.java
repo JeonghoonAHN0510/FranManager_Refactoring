@@ -1,11 +1,15 @@
 package custom;
 
 public class CustomList<E> {
+    // 해당 메소드 내에서만 사용할 변수들
     private static final int default_size = 10;     // List의 최초 기본 사이즈
     private E[] list;                               // 최초 배열
     private int size;                               // 현재 저장된 데이터 개수
 
-    // 생성자 -> List를 생성할 때
+    /**
+     * 생성자
+     * @author Jeonghoon
+     */
     public CustomList(){
         this.list = (E[]) new Object[default_size]; // 기본 사이즈로 배열을 생성하고
         // new E[]로 직접 생성이 불가하여 Object로 배열 생성 후, 형변환을 진행해야한다.
@@ -56,6 +60,7 @@ public class CustomList<E> {
     /**
      * 최초 기본 사이즈보다 많은 데이터가 입력되었을 때
      * 더 큰 배열을 만들고, 기존 배열을 추가한다.
+     * 해당 클래스 내에서만 사용할 메소드이므로 private로 선언한다.
      * @author Jeonghoon
      */
     private E[] plusSize(){
@@ -69,18 +74,13 @@ public class CustomList<E> {
     } // func end
 
     /**
-     * [얻을 인덱스]를 받아서 해당하는 데이터를 반환한다.
+     * [index]를 받아서 해당하는 데이터를 반환한다.
      * @author Jeonghoon
      * @param index
      * @return E 해당 리스트의 타입
      */
     public E get(int index){
-        // 입력받은 인덱스의 범위 유효성 검사 : throw로 예외 실행
-        if (index < 0 || index >= size){            // 0보다 작거나 데이터 개수보다 크면
-            // 왜 size 이상임? index는 0부터 시작이기에 데이터가 10개여도 index는 9개까지 존재하므로
-            // size가 10이고 index가 10이면, 배열 범위를 벗어나게 됨
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ", Index가 범위를 벗어났습니다.");
-        } // if end
+        checkIndex(index);                          // index의 유효성 검사를 진행한다.
         return list[index];                         // 해당하는 리스트의 인덱스 값을 반환한다.
     } // func end
 
@@ -89,12 +89,7 @@ public class CustomList<E> {
      * @param index
      */
     public void remove(int index){
-        // 입력받은 인덱스의 범위 유효성 검사 : throw로 예외 실행
-        if (index < 0 || index >= size){            // 0보다 작거나 데이터 개수보다 크면
-            // 왜 size 이상임? index는 0부터 시작이기에 데이터가 10개여도 index는 9개까지 존재하므로
-            // size가 10이고 index가 10이면, 배열 범위를 벗어나게 됨
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ", Index가 범위를 벗어났습니다.");
-        } // if end
+        checkIndex(index);                          // index의 유효성 검사를 진행한다.
         E[] new_list = (E[]) new Object[size];      // 새로운 배열 선언
         for (int i = 0; i < size; i++){         // 모든 배열을 순회하면서
             if (i < index){                         // i가 index보다 작으면
@@ -105,5 +100,38 @@ public class CustomList<E> {
         } // for end
         size--;                                     // 데이터를 삭제했으므로, size 1 감소
         list = new_list;                            // list에 삭제된 배열 저장
-    } // for end
+    } // func end
+
+    /**
+     * [index, data]를 받아 해당하는 인덱스 값을 data로 수정한다.
+     * @author Jeonghoon
+     * @param index, data
+     */
+    public void set(int index, E data){
+        checkIndex(index);                          // index의 유효성 검사를 진행한다.
+        list[index] = data;                         // index의 값을 data로 변경한다.
+    } // func end
+
+    /**
+     * 해당 리스트의 모든 값을 삭제한다.
+     * @author Jeonghoon
+     */
+    public void clear(){
+        list = (E[]) new Object[default_size];      // 새로운 배열을 만들어 저장한다.
+    } // func end
+
+    /**
+     * [index]를 받아 해당하는 인덱스의 범위 유효성을 검사한다.
+     * 해당 클래스 내에서만 사용할 메소드이므로 private로 선언한다.
+     * @author Jeonghoon
+     * @param index
+     */
+    private void checkIndex(int index){
+        // 입력받은 인덱스의 범위 유효성 검사 : throw로 예외 실행
+        if (index < 0 || index >= size){            // 0보다 작거나 데이터 개수보다 크면
+            // 왜 size 이상임? index는 0부터 시작이기에 데이터가 10개여도 index는 9개까지 존재하므로
+            // size가 10이고 index가 10이면, 배열 범위를 벗어나게 됨
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ", Index가 범위를 벗어났습니다.");
+        } // if end
+    } // func end
 } // class end
