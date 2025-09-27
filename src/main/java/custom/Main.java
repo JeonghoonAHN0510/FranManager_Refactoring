@@ -13,14 +13,15 @@ public class Main {
         integerList.add(2);
         integerList.add(3);
 
-        System.out.println("[삭제 전] stringList = " + stringList);
-        System.out.println("[삭제 전] integerList = " + integerList);
-
-        stringList.remove(1);
-        integerList.remove(1);
-
-        System.out.println("[삭제 후] stringList = " + stringList);
-        System.out.println("[삭제 후] integerList = " + integerList);
+        System.out.println("stringList = " + stringList);
+        System.out.println("integerList = " + integerList);
+        integerList.set( 1, 10 );
+        System.out.println("integerList = " + integerList);
+        stringList.clear();
+        System.out.println("stringList = " + stringList);
+        System.out.println("integerList.isEmpty() = " + integerList.isEmpty());
+        System.out.println(integerList.contains(10));
+        System.out.println(integerList.indexOf(10));
 
     } // main end
 } // class end

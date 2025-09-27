@@ -118,6 +118,42 @@ public class CustomList<E> {
      */
     public void clear(){
         list = (E[]) new Object[default_size];      // 새로운 배열을 만들어 저장한다.
+        size = 0;                                   // 데이터가 모두 삭제되었으므로, size = 0
+    } // func end
+
+    /**
+     * 해당 리스트가 비어있는지 확인하여 boolean으로 반환한다.
+     * @author Jeonghoon
+     * @return boolean
+     */
+    public boolean isEmpty(){
+        return size == 0;                           // size == 0과 동일한 구조
+    } // func end
+
+    /**
+     * [data]를 받아 해당하는 값이 리스트에 있는지 확인하여 boolean으로 반환한다.
+     * @author Jeonghoon
+     * @param data
+     * @return boolean
+     */
+    public boolean contains(E data){
+        for (E e : list){                           // 배열을 모두 순회하면서
+            if(e.equals(data)) return true;         // 값이 같은게 있다면, true 반환
+        } // for end
+        return false;                               // 모두 순회하고도 없으면, false 반환
+    } // func end
+
+    /**
+     * [data]를 받아 해당하는 값의 인덱스를 반환한다. 값이 없으면 -1을 반환한다.
+     * @author Jeonghoon
+     * @param data
+     * @return int
+     */
+    public int indexOf(E data){
+        for (int i = 0; i < size; i++){             // 배열을 모두 순회하면서
+            if(list[i].equals(data)) return i;      // 값이 같다면, 해당하는 인덱스 반환
+        } // for end
+        return -1;                                  // 모두 순회하고도 없으면, -1 반환
     } // func end
 
     /**
