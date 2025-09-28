@@ -1,4 +1,4 @@
-package custom;
+package custom.list;
 
 public class CustomList<E> {
     // 해당 메소드 내에서만 사용할 변수들
