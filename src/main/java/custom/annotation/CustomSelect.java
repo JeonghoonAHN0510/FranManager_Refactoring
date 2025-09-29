@@ -18,6 +18,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomSelect {
 
-    String value();     // 어노테이션이 가질 속성 -> ex) @CustomSelect(value="")
+    String[] value();     // 어노테이션이 가질 속성 -> ex) @CustomSelect(value="")
 
 } // annotation end
